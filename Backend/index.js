@@ -55,8 +55,8 @@ app.post('/login', async (req, res) => {
     res.json({ token });
 });
 
-app.get('/users', authenticateToken, async (req, res) => {
-    const users = await User.find({}, { password: 0 });
+app.get('/', authenticateToken, async (req, res) => {
+    const users = await User.find();
     res.send(users);
 });
 

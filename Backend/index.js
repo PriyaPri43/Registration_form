@@ -3,14 +3,17 @@ const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const cors = require('cors');
+const PORT = process.env.PORT || 5000;
+const MONGODB = process.env.MONGODB_URL;
 
 // App setup
+require("dotenv").config();
 const app = express();
 app.use(express.json());
 app.use(cors());
 
 // MongoDB connection
-mongoose.connect('mongodb://127.0.0.1:27017/auth', { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(MONGODB, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => console.log("MongoDB Connected"))
     .catch((err) => console.error(err));
 
@@ -61,4 +64,4 @@ app.get('/', authenticateToken, async (req, res) => {
 });
 
 // Start server
-app.listen(5000, () => console.log("Server running on port 5000"));
+app.listen(PORT, () => console.log("Server running on port 5000"));
